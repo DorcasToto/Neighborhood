@@ -9,9 +9,26 @@ from .views import UserViewSet
 router = routers.DefaultRouter(trailing_slash=False)
 router.register('users', UserViewSet)
 
+user_signup = UserViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+
+user_login = UserViewSet.as_view({
+    'get': 'list',
+    'post': 'list'
+})
+
+user_detail = UserViewSet.as_view({
+    'get': 'retrieve'
+})
+
 urlpatterns = [
     path('index',views.index),
-    path('', include(router.urls))
+    path('auth/signup/', user_signup, name='user_signup'),
+    path('auth/login/', user_login, name='user_login'),
+    path('users/<int:pk>/', user_detail, name='user-detail'),
+    path('api/v1/', include(router.urls)),
 ]
 
 if settings.DEBUG:

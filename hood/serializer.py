@@ -1,25 +1,19 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
+from rest_framework import viewsets
+
+
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    # password2 = serializers.CharField(
-    #     required=True,
-    #     style={'input_type': 'password'}
-    # )
-    
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'is_staff', 'password', 'password2']
+        fields = ['url', 'username', 'email', 'is_staff', 'password']
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data.get('password'))
         return super(UserSerializer, self).create(validated_data)
 
-    # def clean_password(self):
-    #     pass1 = self.validated_data['password']
-    #     pass2 = self.validated_data['password2']
-    #     return make_password(pass1) == make_password(pass2)
 
 class UserRegistrationSerializer(serializers.Serializer):
     email = serializers.EmailField()
