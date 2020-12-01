@@ -19,7 +19,7 @@ class Neighbourhood(models.Model):
     def delete_neighborhood(self):
         self.delete()
 
-class profile (models.Model):
+class Profile (models.Model):
     name = models.CharField(max_length=30)
     idNo = models.IntegerField(default=0)
     neighbourhood = models.ForeignKey(Neighbourhood,on_delete=models.CASCADE)
