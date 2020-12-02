@@ -8,6 +8,7 @@ from rest_framework.permissions import AllowAny
 from .models import Profile,Neighbourhood,Business
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import mixins
 from rest_framework import status
 from .permissions import IsAdminOrReadOnly
 
@@ -51,6 +52,29 @@ class HoodList(APIView):
         all_hoods = Neighbourhood.objects.all()
         serializerdata = HoodSerializer(all_hoods,many = True)
         return Response(serializerdata.data)
+
+class HoodViewset(mixins.CreateModelMixin,
+                  mixins.ListModelMixin,
+                  mixins.RetrieveModelMixin,
+                  mixins.UpdateModelMixin,
+                  viewsets.GenericViewSet):
+
+    queryset = Neighbourhood.objects.all()
+    serializer_class = HoodSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+    @action(detail=False)
+    def hoods(self, *args, **kwargs):
+        queryset = Neighbourhood.objects.all()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['GET'])
+    def view_hood(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+    
 
 class PostList(APIView):
 
