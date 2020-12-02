@@ -71,7 +71,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hood',
-    'rest_framework'
+    'rest_framework',
     'corsheaders',
 ]
 
@@ -154,7 +154,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Nairobi'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
