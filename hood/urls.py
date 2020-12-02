@@ -34,7 +34,7 @@ urlpatterns = [
     path('api/v1/hoods/',views.HoodList.as_view()),
     path('api/v1/post/',views.PostList.as_view()),
     path('api/v1/profile/<pk>/',views.ProfileList.as_view()),
-    path('api/v1/businesses',views.BusinessViewset)
+    # path('api/v1/businesses',views.BusinessViewset)
 ]
 
 if settings.DEBUG:
