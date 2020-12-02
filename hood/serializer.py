@@ -55,8 +55,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ['name', 'idNo', 'neighbourhood', 'status', 'photo', 'user']    
 
-class Serializer(serializers.ModelSerializer):
+class BusinessSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(read_only=False)
+    neighbourhood = serializers.PrimaryKeyRelatedField(read_only=False)
 
     class Meta:
-        model =  Post
-        fields = ['title', 'text', 'user','date','neighbourhood']   
+        model =  Business
+        fields = ['businessName', 'user', 'neighbourhood', 'businessEmail']   

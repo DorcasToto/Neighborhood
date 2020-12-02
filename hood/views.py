@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from django.contrib.auth.models import User
-from .serializer import UserSerializer, UserRegistrationSerializer,HoodSerializer,PostSerializer,ProfileSerializer
+from .serializer import UserSerializer, UserRegistrationSerializer,HoodSerializer,PostSerializer,ProfileSerializer, BusinessSerializer
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
@@ -13,6 +13,18 @@ from .permissions import IsAdminOrReadOnly
 
 def index(request):
     return render('index.html')
+
+class IsAssigned(permissions.BasePermission): 
+    """
+    Only person who assigned has permission
+    """
+
+    def has_object_permission(self, request, view, obj):
+		# check if user who launched request is object owner 
+        if obj.assigned_to == request.user: 
+            return True
+
+        return False
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -67,3 +79,16 @@ class ProfileList(APIView):
             return Response(serializers.data)
         else:
             return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class BusinessViewset(viewsets.ModelViewSet):
+    queryset = Business.objects.all()
+    serializer_class = BusinessSerializer
+    permission_classes = [IsAssigned, permissions.IsAdminUser]
+
+    # def list(self, request, *args, **kwargs):
+    #     self.get_queryset = Business.objects.filter(user=request.user)
+
+    #     if request.user.is_superuser():
+    #         self.get_queryset = Business.objects.all()
+
+    #     super().list(*args, **kwargs)
