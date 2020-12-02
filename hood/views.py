@@ -80,10 +80,10 @@ class ProfileList(APIView):
         else:
             return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class BusinessViewset(viewsets.ModelViewSet):
-    queryset = Business.objects.all()
-    serializer_class = BusinessSerializer
-    permission_classes = [IsAssigned, permissions.IsAdminUser]
+# class BusinessViewset(viewsets.ModelViewSet):
+#     queryset = Business.objects.all()
+#     serializer_class = BusinessSerializer
+#     permission_classes = [IsAssigned, permissions.IsAdminUser]
 
     # def list(self, request, *args, **kwargs):
     #     self.get_queryset = Business.objects.filter(user=request.user)
