@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path,os
+from datetime import timedelta
 
 import django_heroku
 import dj_database_url
@@ -182,3 +183,7 @@ django_heroku.settings(locals())
 # trailing slash
 APPEND_SLASH = False
 CORS_ALLOW_ALL_ORIGINS = True
+
+SIMPLE_JWT = ({
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60)
+})

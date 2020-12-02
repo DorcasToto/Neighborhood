@@ -6,6 +6,15 @@ from rest_framework import viewsets
 
 
 
+class BusinessSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+    neighbourhood = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model =  Business
+        fields = ['businessName', 'user', 'neighbourhood', 'businessEmail']   
+
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
@@ -38,9 +47,10 @@ class UserRegistrationSerializer(serializers.Serializer):
         return data
 
 class HoodSerializer(serializers.ModelSerializer):
+    business_set = BusinessSerializer(many=True)
     class Meta:
         model =  Neighbourhood
-        fields = ['hoodName', 'hoodLocation', 'occupantsCount','admin'] 
+        fields = ['id', 'hoodName', 'hoodLocation', 'occupantsCount','admin', 'business_set'] 
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
@@ -55,10 +65,11 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ['name', 'idNo', 'neighbourhood', 'status', 'photo', 'user']    
 
-# class BusinessSerializer(serializers.ModelSerializer):
-#     user = serializers.PrimaryKeyRelatedField(read_only=False)
-#     neighbourhood = serializers.PrimaryKeyRelatedField(read_only=False)
+        
+class BusinessSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(read_only=False)
+    neighbourhood = serializers.PrimaryKeyRelatedField(read_only=False)
 
-#     class Meta:
-#         model =  Business
-#         fields = ['businessName', 'user', 'neighbourhood', 'businessEmail']   
+    class Meta:
+        model =  Business
+        fields = ['businessName', 'user', 'neighbourhood', 'businessEmail']
