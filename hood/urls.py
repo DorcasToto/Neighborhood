@@ -4,10 +4,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from rest_framework import routers
-from .views import UserViewSet
+from .views import UserViewSet,HoodList
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register('users', UserViewSet)
+# router.register('hoods', hood_list)
+
 
 user_signup = UserViewSet.as_view({
     'get': 'list',
@@ -29,6 +31,7 @@ urlpatterns = [
     path('auth/login/', user_login, name='user_login'),
     path('users/<int:pk>/', user_detail, name='user-detail'),
     path('api/v1/', include(router.urls)),
+    path('hoods/',views.HoodList.as_view())
 ]
 
 if settings.DEBUG:

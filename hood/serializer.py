@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from .models import Neighbourhood,Profile,Business
 from django.contrib.auth.hashers import make_password
 from rest_framework import viewsets
 
@@ -35,4 +36,8 @@ class UserRegistrationSerializer(serializers.Serializer):
         if data.get('password') != data.get('confirm_password'):
             raise serializers.ValidationError("Those passwords don't match.")
         return data
-        
+
+class HoodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model =  Neighbourhood
+        fields = ['hoodName', 'hoodLocation', 'occupantsCount'] 

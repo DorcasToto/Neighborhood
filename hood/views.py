@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from django.contrib.auth.models import User
-from .serializer import UserSerializer, UserRegistrationSerializer
+from .serializer import UserSerializer, UserRegistrationSerializer,HoodSerializer
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
+from .models import Profile,Neighbourhood,Business
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 # Create your views here.
 
@@ -30,3 +33,9 @@ class UserViewSet(viewsets.ModelViewSet):
     #     model_serializer.is_valid(raise_exception=True)
     #     model_serializer.save()
     #     return Response(model_serializer.data)
+
+class HoodList(APIView):
+    def get(self,request,format = None):
+        all_hoods = Neighbourhood.objects.all()
+        serializerdata = HoodSerializer(all_hoods,many = True)
+        return Response(serializerdata.data)
