@@ -40,7 +40,7 @@ urlpatterns = [
     path('auth/login/', user_login, name='user_login'),
     path('users/<int:pk>/', user_detail, name='user-detail'),
     path('api/v1/', include(router.urls)),
-    path('api/v1/view_hood/<int:pk>/', view_hood, name='view_hood'),
+    path('api/v1/view_hood/<pk>/', view_hood, name='view_hood'),
     path('api/v1/hoods/', hoods),
     path('api/v1/post/',views.PostList.as_view()),
     path('api/v1/profile/<pk>/',views.ProfileList.as_view()),
