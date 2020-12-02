@@ -26,12 +26,13 @@ user_detail = UserViewSet.as_view({
 })
 
 urlpatterns = [
-    path('index',views.index),
+    # path('api/v1',views.index),
     path('auth/signup/', user_signup, name='user_signup'),
     path('auth/login/', user_login, name='user_login'),
     path('users/<int:pk>/', user_detail, name='user-detail'),
     path('api/v1/', include(router.urls)),
-    path('hoods/',views.HoodList.as_view())
+    path('hoods/',views.HoodList.as_view()),
+    path('post/',views.PostList.as_view())
 ]
 
 if settings.DEBUG:

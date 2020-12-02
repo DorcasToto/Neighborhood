@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Neighbourhood,Profile,Business
+from .models import Neighbourhood,Profile,Business,Post
 from django.contrib.auth.hashers import make_password
 from rest_framework import viewsets
 
@@ -41,3 +41,8 @@ class HoodSerializer(serializers.ModelSerializer):
     class Meta:
         model =  Neighbourhood
         fields = ['hoodName', 'hoodLocation', 'occupantsCount','admin'] 
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model =  Post
+        fields = ['title', 'text', 'user','date','neighbourhood'] 
