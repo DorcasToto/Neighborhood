@@ -10,7 +10,7 @@ class Neighbourhood(models.Model):
     admin = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.neighbourhoodName} neighbourhood'
+        return f'{self.hoodName} neighbourhood'
 
 
     def save_neighborhood(self):

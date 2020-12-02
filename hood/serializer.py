@@ -40,4 +40,4 @@ class UserRegistrationSerializer(serializers.Serializer):
 class HoodSerializer(serializers.ModelSerializer):
     class Meta:
         model =  Neighbourhood
-        fields = ['hoodName', 'hoodLocation', 'occupantsCount'] 
+        fields = ['hoodName', 'hoodLocation', 'occupantsCount','admin'] 
