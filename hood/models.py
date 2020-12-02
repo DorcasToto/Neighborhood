@@ -22,10 +22,11 @@ class Neighbourhood(models.Model):
 class Profile (models.Model):
     name = models.CharField(max_length=30)
     idNo = models.IntegerField(default=0)
-    neighbourhood = models.ForeignKey(Neighbourhood,on_delete=models.CASCADE)
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     emailaddress = models.CharField(max_length=50)
     status = models.BooleanField()
     photo = models.ImageField(upload_to = 'profile',default = 'profile.jpg')
+    user = models.OneToOneField(User,on_delete=models.CASCADE,default='')
 
     def __str__(self):
         return f'{self.user.username} Profile'

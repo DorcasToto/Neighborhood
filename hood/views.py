@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from django.contrib.auth.models import User
-from .serializer import UserSerializer, UserRegistrationSerializer,HoodSerializer,PostSerializer
+from .serializer import UserSerializer, UserRegistrationSerializer,HoodSerializer,PostSerializer,ProfileSerializer, BusinessSerializer
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
@@ -9,9 +9,22 @@ from .models import Profile,Neighbourhood,Business
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from .permissions import IsAdminOrReadOnly
 
 def index(request):
     return render('index.html')
+
+class IsAssigned(permissions.BasePermission): 
+    """
+    Only person who assigned has permission
+    """
+
+    def has_object_permission(self, request, view, obj):
+		# check if user who launched request is object owner 
+        if obj.assigned_to == request.user: 
+            return True
+
+        return False
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -46,4 +59,36 @@ class PostList(APIView):
         if serializers.is_valid():
             serializers.save()
             return Response(serializers.data, status=status.HTTP_201_CREATED)
-        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)        
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)   
+
+class ProfileList(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
+
+
+    def get_profile(self, pk):
+        try:
+            return Profile.objects.get(pk=pk)
+        except Profile.DoesNotExist:
+            return Http404
+
+    def patch(self, request, pk, format=None):
+        profile = self.get_profile(pk)
+        serializers = ProfileSerializer(profile, request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data)
+        else:
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class BusinessViewset(viewsets.ModelViewSet):
+    queryset = Business.objects.all()
+    serializer_class = BusinessSerializer
+    permission_classes = [IsAssigned, permissions.IsAdminUser]
+
+    # def list(self, request, *args, **kwargs):
+    #     self.get_queryset = Business.objects.filter(user=request.user)
+
+    #     if request.user.is_superuser():
+    #         self.get_queryset = Business.objects.all()
+
+    #     super().list(*args, **kwargs)
