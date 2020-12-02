@@ -32,7 +32,8 @@ urlpatterns = [
     path('users/<int:pk>/', user_detail, name='user-detail'),
     path('api/v1/', include(router.urls)),
     path('api/v1/hoods/',views.HoodList.as_view()),
-    path('api/v1/post/',views.PostList.as_view())
+    path('api/v1/post/',views.PostList.as_view()),
+    path('api/v1/profile/<pk>/',views.ProfileList.as_view()),
 ]
 
 if settings.DEBUG:
