@@ -64,3 +64,12 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['name', 'idNo', 'neighbourhood', 'status', 'photo', 'user']    
+
+        
+class BusinessSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(read_only=False)
+    neighbourhood = serializers.PrimaryKeyRelatedField(read_only=False)
+
+    class Meta:
+        model =  Business
+        fields = ['businessName', 'user', 'neighbourhood', 'businessEmail']

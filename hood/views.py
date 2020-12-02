@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from django.contrib.auth.models import User
-from .serializer import UserSerializer, UserRegistrationSerializer,HoodSerializer,PostSerializer,ProfileSerializer, BusinessSerializer
+from .serializer import UserSerializer, UserRegistrationSerializer,HoodSerializer,PostSerializer,ProfileSerializer
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
@@ -104,10 +104,10 @@ class ProfileList(APIView):
         else:
             return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class BusinessViewset(viewsets.ModelViewSet):
-    queryset = Business.objects.all()
-    serializer_class = BusinessSerializer
-    permission_classes = [IsAssigned, permissions.IsAdminUser]
+# class BusinessViewset(viewsets.ModelViewSet):
+#     queryset = Business.objects.all()
+#     serializer_class = BusinessSerializer
+#     permission_classes = [IsAssigned, permissions.IsAdminUser]
 
     # def list(self, request, *args, **kwargs):
     #     self.get_queryset = Business.objects.filter(user=request.user)
