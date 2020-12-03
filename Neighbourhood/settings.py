@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     'hood',
     'rest_framework',
     'corsheaders',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
