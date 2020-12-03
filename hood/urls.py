@@ -6,6 +6,11 @@ from django.contrib.auth import views as auth_views
 from rest_framework import routers
 from .views import UserViewSet,HoodList, HoodViewset
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 router = routers.DefaultRouter(trailing_slash=False)
 router.register('users', UserViewSet)
 # router.register('hoods', HoodViewset)
@@ -37,13 +42,15 @@ view_hood = HoodViewset.as_view({
 urlpatterns = [
     # path('api/v1',views.index),
     path('auth/signup/', user_signup, name='user_signup'),
-    path('auth/login/', user_login, name='user_login'),
-    path('users/<int:pk>/', user_detail, name='user-detail'),
-    path('api/v1/', include(router.urls)),
+    # path('auth/login/', user_login, name='user_login'),
+    path('auth/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/v1/view_hood/<pk>/', view_hood, name='view_hood'),
     path('api/v1/hoods/', hoods),
     path('api/v1/post/',views.PostList.as_view()),
     path('api/v1/profile/<pk>/',views.ProfileList.as_view()),
+    # path('api/v1/', include(router.urls)),
+    # path('users/<int:pk>/', user_detail, name='user-detail'),
     # path('api/v1/businesses',views.BusinessViewset)
 ]
 

@@ -15,10 +15,10 @@ class BusinessSerializer(serializers.ModelSerializer):
         fields = ['businessName', 'user', 'photo','neighbourhood', 'businessEmail']   
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'is_staff', 'password']
+        fields = ['username', 'email', 'is_staff', 'password']
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data.get('password'))
