@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -7,7 +8,7 @@ class Neighbourhood(models.Model):
     hoodName = models.CharField(max_length=250)
     hoodLocation = models.CharField(max_length=250)
     occupantsCount = models.IntegerField(default=0)
-    photo = models.ImageField(upload_to = 'hood',default = 'hood.jpg')
+    photo =CloudinaryField('hood')
     admin = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
@@ -26,7 +27,7 @@ class Profile (models.Model):
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     emailaddress = models.CharField(max_length=50)
     status = models.BooleanField()
-    photo = models.ImageField(upload_to = 'profile',default = 'profile.jpg')
+    photo =CloudinaryField('profile')
     user = models.OneToOneField(User,on_delete=models.CASCADE,default='')
 
     def __str__(self):

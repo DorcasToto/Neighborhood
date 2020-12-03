@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path,os
 from datetime import timedelta
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 import django_heroku
 import dj_database_url
 from decouple import config,Csv
@@ -186,3 +190,10 @@ CORS_ALLOW_ALL_ORIGINS = True
 SIMPLE_JWT = ({
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60)
 })
+
+
+cloudinary.config( 
+  cloud_name = "dzvafknwk", 
+  api_key = "792498396853217", 
+  api_secret = "Dr-pc8vOEDpJ_8bXqx0t4GkVqSk" 
+)
