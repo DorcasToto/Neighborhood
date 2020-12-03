@@ -12,7 +12,7 @@ class BusinessSerializer(serializers.ModelSerializer):
 
     class Meta:
         model =  Business
-        fields = ['businessName', 'user', 'neighbourhood', 'businessEmail']   
+        fields = ['businessName', 'user', 'photo','neighbourhood', 'businessEmail']   
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
