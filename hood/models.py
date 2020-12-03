@@ -45,6 +45,7 @@ class Business(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     neighbourhood = models.ForeignKey(Neighbourhood,on_delete=models.CASCADE)
     businessEmail = models.CharField(max_length=30)
+    photo = CloudinaryField('businessphoto',default='')
 
     def __str__(self):
 
