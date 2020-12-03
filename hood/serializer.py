@@ -12,7 +12,7 @@ class BusinessSerializer(serializers.ModelSerializer):
 
     class Meta:
         model =  Business
-        fields = ['businessName', 'user', 'photo','neighbourhood', 'businessEmail']   
+        fields = ['businessName', 'user', 'neighbourhood', 'businessEmail']   
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -50,7 +50,7 @@ class HoodSerializer(serializers.ModelSerializer):
     business_set = BusinessSerializer(many=True)
     class Meta:
         model =  Neighbourhood
-        fields = ['id', 'hoodName', 'hoodLocation', 'occupantsCount','admin', 'business_set'] 
+        fields = ['id', 'hoodName','photo','hoodLocation', 'occupantsCount','admin', 'business_set'] 
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
