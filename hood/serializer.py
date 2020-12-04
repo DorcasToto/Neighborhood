@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
-from .models import Neighbourhood,Profile,Business,Post
+from .models import Neighbourhood,Profile,Business,Post, User
 from django.contrib.auth.hashers import make_password
 from rest_framework import viewsets
 
@@ -12,13 +11,20 @@ class BusinessSerializer(serializers.ModelSerializer):
 
     class Meta:
         model =  Business
-        fields = ['businessName', 'user', 'photo','neighbourhood', 'businessEmail']   
+        fields = ['businessName', 'user', 'photo','neighbourhood', 'businessEmail'] 
+
+class HoodSerializer(serializers.ModelSerializer):
+    business_set = BusinessSerializer(many=True)
+    class Meta:
+        model =  Neighbourhood
+        fields = ['id', 'hoodName','photo','hoodLocation', 'occupants_count','admin', 'business_set']   
 
 
 class UserSerializer(serializers.ModelSerializer):
+    neighbourhood = serializers.PrimaryKeyRelatedField(read_only=False)
     class Meta:
         model = User
-        fields = ['username', 'email', 'is_staff', 'password']
+        fields = ['username', 'email', 'is_staff', 'password', 'neighbourhood']
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data.get('password'))
@@ -46,11 +52,6 @@ class UserRegistrationSerializer(serializers.Serializer):
             raise serializers.ValidationError("Those passwords don't match.")
         return data
 
-class HoodSerializer(serializers.ModelSerializer):
-    business_set = BusinessSerializer(many=True)
-    class Meta:
-        model =  Neighbourhood
-        fields = ['id', 'hoodName','photo','hoodLocation', 'occupantsCount','admin', 'business_set'] 
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:

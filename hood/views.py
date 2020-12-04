@@ -1,11 +1,10 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from django.contrib.auth.models import User
 from .serializer import UserSerializer, UserRegistrationSerializer,HoodSerializer,PostSerializer,ProfileSerializer
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
-from .models import Profile,Neighbourhood,Business
+from .models import Profile,Neighbourhood,Business, User
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import mixins

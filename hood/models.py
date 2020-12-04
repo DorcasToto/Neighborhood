@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from cloudinary.models import CloudinaryField
 
 # Create your models here.
@@ -7,7 +7,6 @@ from cloudinary.models import CloudinaryField
 class Neighbourhood(models.Model):
     hoodName = models.CharField(max_length=250)
     hoodLocation = models.CharField(max_length=250)
-    occupantsCount = models.IntegerField(default=0)
     photo =CloudinaryField('hood')
     admin = models.ForeignKey(User,on_delete=models.CASCADE)
 
@@ -20,6 +19,16 @@ class Neighbourhood(models.Model):
 
     def delete_neighborhood(self):
         self.delete()
+
+    @property
+    def occupants_count(self):
+        return self.neighbourhood_users.count()
+
+
+class User(AbstractUser):
+    neighbourhood = models.ForeignKey(
+        Neighbourhood, on_delete=models.CASCADE, related_name='neighbourhood_users')
+
 
 class Profile (models.Model):
     name = models.CharField(max_length=30)
