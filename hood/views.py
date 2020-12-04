@@ -61,7 +61,7 @@ class HoodViewset(mixins.CreateModelMixin,
 
     queryset = Neighbourhood.objects.all()
     serializer_class = HoodSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     @action(detail=False)
     def hoods(self, *args, **kwargs):
