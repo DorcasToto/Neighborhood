@@ -8,7 +8,7 @@ from cloudinary.models import CloudinaryField
 class Neighbourhood(models.Model):
     hoodName = models.CharField(max_length=250)
     hoodLocation = models.CharField(max_length=250)
-    photo =CloudinaryField('hood')
+    photo =CloudinaryField('photo', default='photo')
     # admin = models.ForeignKey('User',on_delete=models.CASCADE)
 
     def __str__(self):

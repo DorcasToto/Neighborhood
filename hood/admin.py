@@ -19,6 +19,10 @@ class CustomUserAdmin(UserAdmin):
         (_('Important dates'), {'fields': ('last_login', 'date_joined')})
     )
 
+class NeighbourhoodAdmin(admin.ModelAdmin):
+    model = Neighbourhood
+    
+
 # Register your models here.
 admin.site.register(Neighbourhood)
 admin.site.register(Post)
