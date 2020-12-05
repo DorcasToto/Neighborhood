@@ -2,9 +2,9 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from .serializer import UserSerializer, UserRegistrationSerializer,HoodSerializer,PostSerializer,ProfileSerializer
 from rest_framework import viewsets, permissions
-from rest_framework.decorators import action
+from rest_framework.decorators import action, permission_classes as permission_decorator
 from rest_framework.permissions import AllowAny
-from .models import Profile,Neighbourhood,Business, User
+from .models import Profile,Neighbourhood,Business, User,Post
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import mixins
@@ -25,6 +25,19 @@ class IsAssigned(permissions.BasePermission):
             return True
 
         return False
+
+class IsReadOnlyOrIsAuthenticated(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        authenticated = request.user.is_authenticated
+        if not authenticated:
+            if view.action == 'hoods':
+                return True
+            else:
+                return False
+        else:
+            return True
+
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -47,13 +60,14 @@ class UserViewSet(viewsets.ModelViewSet):
     #     return Response(model_serializer.data)
 
 class HoodList(APIView):
+
+    @permission_decorator([permissions.AllowAny])
     def get(self,request,format = None):
         all_hoods = Neighbourhood.objects.all()
         serializerdata = HoodSerializer(all_hoods,many = True)
         return Response(serializerdata.data)
 
 class HoodViewset(mixins.CreateModelMixin,
-                  mixins.ListModelMixin,
                   mixins.RetrieveModelMixin,
                   mixins.UpdateModelMixin,
                   viewsets.GenericViewSet):
@@ -62,8 +76,10 @@ class HoodViewset(mixins.CreateModelMixin,
     serializer_class = HoodSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    @action(detail=False)
+    @action(detail=False, methods=['GET'])
+    @permission_decorator([permissions.AllowAny])
     def hoods(self, *args, **kwargs):
+        # self.get_permissions = [permissions.AllowAny]
         queryset = Neighbourhood.objects.all()
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
@@ -82,7 +98,16 @@ class PostList(APIView):
         if serializers.is_valid():
             serializers.save()
             return Response(serializers.data, status=status.HTTP_201_CREATED)
-        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)   
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+
+class viewPosts(APIView):
+
+    # @permission_decorator([permissions.AllowAny])
+    def get(self,request,format = None):
+        all_posts = Post.objects.all()
+        serializerdata = PostSerializer(all_posts,many = True)
+        return Response(serializerdata.data)       
 
 class ProfileList(APIView):
     permission_classes = (IsAdminOrReadOnly,)

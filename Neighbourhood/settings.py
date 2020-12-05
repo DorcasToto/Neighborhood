@@ -116,7 +116,7 @@ WSGI_APPLICATION = 'Neighbourhood.wsgi.application'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        # 'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ]
 }
@@ -198,3 +198,5 @@ cloudinary.config(
   api_key = "792498396853217", 
   api_secret = "Dr-pc8vOEDpJ_8bXqx0t4GkVqSk" 
 )
+
+AUTH_USER_MODEL = 'hood.User'
