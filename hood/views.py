@@ -104,15 +104,17 @@ class ProfileList(APIView):
         else:
             return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# class BusinessViewset(viewsets.ModelViewSet):
-#     queryset = Business.objects.all()
-#     serializer_class = BusinessSerializer
-#     permission_classes = [IsAssigned, permissions.IsAdminUser]
-
-    # def list(self, request, *args, **kwargs):
-    #     self.get_queryset = Business.objects.filter(user=request.user)
-
-    #     if request.user.is_superuser():
-    #         self.get_queryset = Business.objects.all()
-
-    #     super().list(*args, **kwargs)
+def search_business(request):
+    if request.method == 'GET':
+        name = request.GET.get("title")
+        results = Business.objects.filter(name__icontains=name).all()
+        print(results)
+        message = f'name'
+        params = {
+            'results': results,
+            'message': message
+        }
+        return render(request, 'results.html', params)
+    else:
+        message = "You haven't searched for any image category"
+    return render(request, "results.html")
