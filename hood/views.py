@@ -74,7 +74,7 @@ class HoodViewset(mixins.CreateModelMixin,
 
     queryset = Neighbourhood.objects.all()
     serializer_class = HoodSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     @action(detail=False, methods=['GET'])
     @permission_decorator([permissions.AllowAny])
@@ -92,7 +92,7 @@ class HoodViewset(mixins.CreateModelMixin,
     
 
 class PostList(APIView):
-
+    permission_classes = [permissions.IsAuthenticated]
     def post(self, request, format=None):
         serializers = PostSerializer(data=request.data)
         if serializers.is_valid():
