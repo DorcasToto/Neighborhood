@@ -74,7 +74,7 @@ class HoodViewset(mixins.CreateModelMixin,
 
     queryset = Neighbourhood.objects.all()
     serializer_class = HoodSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     @action(detail=False, methods=['GET'])
     @permission_decorator([permissions.AllowAny])
