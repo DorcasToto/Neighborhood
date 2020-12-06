@@ -6,32 +6,20 @@ from rest_framework import viewsets
 
 
 
-class BusinessSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(read_only=True)
-    neighbourhood = serializers.PrimaryKeyRelatedField(read_only=True)
-
-    class Meta:
-        model =  Business
-        fields = ['businessName', 'user', 'neighbourhood', 'businessEmail']   
-
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
+    # neighbourhood = serializers.CharField(source='neighbourhood.name')
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'is_staff', 'password']
-
+        fields = ['first_name', 'email', 'is_staff', 'last_name', 'avatar']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data.get('password'))
         return super(UserSerializer, self).create(validated_data)
-
-
 class UserRegistrationSerializer(serializers.Serializer):
     email = serializers.EmailField()
     first_name = serializers.CharField(required=False)
     last_name = serializers.CharField(required=False)
     password = serializers.CharField()
     confirm_password = serializers.CharField()
-    
     def validate_email(self, email):
         existing = User.objects.filter(email=email).first()
         if existing:
@@ -45,31 +33,24 @@ class UserRegistrationSerializer(serializers.Serializer):
         if data.get('password') != data.get('confirm_password'):
             raise serializers.ValidationError("Those passwords don't match.")
         return data
-
-class HoodSerializer(serializers.ModelSerializer):
-    business_set = BusinessSerializer(many=True)
+        
+class NeighbourhoodSerializer(serializers.ModelSerializer):
     class Meta:
-        model =  Neighbourhood
-        fields = ['id', 'hoodName','photo','hoodLocation', 'occupantsCount','admin', 'business_set'] 
-
-class PostSerializer(serializers.ModelSerializer):
-    class Meta:
-        model =  Post
-        fields = ['title', 'text', 'user','date','neighbourhood'] 
-
+        model = Neighbourhood
+        fields = ('id', 'name', 'location','admin', 'occupantsCount','image')
+        
 
 class ProfileSerializer(serializers.ModelSerializer):
-    neighbourhood = serializers.PrimaryKeyRelatedField(read_only=True)
-
     class Meta:
         model = Profile
-        fields = ['name', 'idNo', 'neighbourhood', 'status', 'photo', 'user']    
-
+        fields = ('id', 'name', 'email', 'status', 'image','user')
         
 class BusinessSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(read_only=False)
-    neighbourhood = serializers.PrimaryKeyRelatedField(read_only=False)
-
     class Meta:
-        model =  Business
-        fields = ['businessName', 'user', 'neighbourhood', 'businessEmail']
+        model = Business
+        fields = ('id', 'business_name','user','neighbourhood', 'business_email','business_profile')
+        
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ('id', 'title', 'user','neighbourhood','text','image')
