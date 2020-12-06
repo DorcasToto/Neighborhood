@@ -83,7 +83,8 @@ class HoodViewset(mixins.CreateModelMixin,
         queryset = Neighbourhood.objects.all()
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
-
+        
+    @permission_decorator([permissions.AllowAny])
     @action(detail=False, methods=['GET'])
     def view_hood(self, request, *args, **kwargs):
         instance = self.get_object()
