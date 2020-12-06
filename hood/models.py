@@ -99,7 +99,7 @@ class Business(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField()
-    photo = CloudinaryField('postPhoto',default='')
+    photo = CloudinaryField('postPhoto',default='',null=True,blank=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE,default = '',null=True,blank=True)
     date = models.DateField(auto_now_add=True)
     neighbourhood = models.ForeignKey(Neighbourhood,on_delete=models.CASCADE, default='', null=True, blank=True)

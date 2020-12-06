@@ -55,6 +55,7 @@ class UserRegistrationSerializer(serializers.Serializer):
 
 class PostSerializer(serializers.ModelSerializer):
     photo = serializers.FileField()
+    neighbourhood = Neighbourhood.objects.filter()
     class Meta:
         model =  Post
         fields = ['title', 'text', 'user','photo','date','neighbourhood'] 
