@@ -63,7 +63,7 @@ pip install -r backend/requirements.txt.
 - Login as superuser
 
 # Endpoints
-Download [Postman]('https://www.postman.com/downloads/') to access the following endpoints
+Download [ postman]( https://www.postman.com/downloads/ ) to access the following endpoints
 
 - loginendpoint (https://hood256.herokuapp.com/auth/login/)
 - view hoods endpoint (https://hood256.herokuapp.com/api/v1/view_hood/%3Cpk%3E/)
