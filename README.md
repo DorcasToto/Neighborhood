@@ -13,30 +13,30 @@ This is a website that allows one to join a neigborhood and post things around t
 # Features
 
 A normal authenticated user can be able to:
-    a) Sign in to the application to start using it.
-    b) Set up a profile which contains:
-        - My name 
-        - My location 
-        - My neighborhood name 
-    c) Find a list of different businesses in my neighborhood.
-    d) Find Contact Information for the emergency services e.g health department, in his/her 
-       neighborhood.
-    e) Create Posts that will be visible to everyone in my neighborhood.
-    f) Change My neighborhood when I decide to move out.
-    g) Users can only belong to one neighborhood at a time.
-    h) Only view details of a single neighborhood.
+  - Sign in to the application to start using it.
+  - Set up a profile which contains:
+          1. My name 
+          2. My location 
+          3. My neighborhood name 
+  - Find a list of different businesses in my neighborhood.
+  - Find Contact Information for the emergency services e.g health department, in his/her 
+        neighborhood.
+  - Create Posts that will be visible to everyone in my neighborhood.
+  - Change My neighborhood when I decide to move out.
+  - Users can only belong to one neighborhood at a time.
+  - Only view details of a single neighborhood.
 
 The neighbourhood administrator can be able to:
-    i)  Add information about neighborhoods for example: Add businesses, health care centers etc.
-    ii) Perform all the operations of a normal user.
+  - Add information about neighborhoods for example: Add businesses, health care centers etc.
+  - Perform all the operations of a normal user.
 
 The system administrator can be able to:
-    - Create neighborhoods
-    - Delete neighborhoods 
-    - Edit neighborhood information
-    - See all users
-    - Change user statuses: Either from neighborhood admin to regular user, or the opposite.
-    - Remove users.
+  - Create neighborhoods
+  - Delete neighborhoods 
+  - Edit neighborhood information
+  - See all users
+  - Change user statuses: Either from neighborhood admin to regular user, or the opposite.
+  - Remove users.
 
 ## Project live site
   This is the live .[ Click for the demo]( https://hood256.herokuapp.com/)
@@ -47,19 +47,20 @@ The system administrator can be able to:
 
 # Installation
 
-a. Create and activate virtualenv.
-b. Install required packages
+- Create and activate virtualenv.
+- Install required packages: 
 pip install -r backend/requirements.txt.
-c. Setup
-cd backend copy settings.py.txt to settings.py and update the db credentials.(If you are using SQLLite)
-d. Setup database
-python manage.py migrate
-e. Run the server
-python manage.py runserver
-f. Check if the application is running correctly
-g. Create a superuser for the admin backend
-python manage.py createsuperuser
-h. Login as superuser
+
+# Setup
+
+- copy settings.py.txt to settings.py and update the db credentials.(If you are using SQLLite)
+- Setup database
+- run python manage.py migrate
+- Run the server
+- Check if the application is running correctly
+- Create a superuser for the admin backend
+- run python manage.py createsuperuser and input the credentials
+- Login as superuser
 
 # Endpoints
 You can access the api end points by visiting the following sites 
