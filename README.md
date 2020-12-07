@@ -70,7 +70,7 @@ You can access the api end points by visiting the following sites
 - signupendpoint (https://hood256.herokuapp.com/auth/signup/)
 - view hoods endpoint (https://hood256.herokuapp.com/api/v1/hoods/)
 - create post on a hood endpoint (https://hood256.herokuapp.com/api/v1/post/)
--current user endpoint (https://hood256.herokuapp.com/currentuser/)
+- current user endpoint (https://hood256.herokuapp.com/currentuser/)
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/DorcasToto/Neighborhood-Frontend/blob/master/LICENSE)
