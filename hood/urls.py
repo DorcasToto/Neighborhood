@@ -50,6 +50,7 @@ urlpatterns = [
     path('api/v1/post/',views.PostList.as_view()),
     path('api/v1/allposts/',views.viewPosts.as_view()),
     path('api/v1/profile/<pk>/',views.ProfileList.as_view()),
+    path('currentuser/',views.check_login,name = 'currentuser')
     # path('api/v1/', include(router.urls)),
     # path('users/<int:pk>/', user_detail, name='user-detail'),
     # path('api/v1/businesses',views.BusinessViewset)

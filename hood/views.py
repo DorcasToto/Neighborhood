@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponse
 from rest_framework import viewsets
 from .serializer import UserSerializer, UserRegistrationSerializer,HoodSerializer,PostSerializer,ProfileSerializer
 from rest_framework import viewsets, permissions
@@ -10,6 +10,7 @@ from rest_framework.views import APIView
 from rest_framework import mixins
 from rest_framework import status
 from .permissions import IsAdminOrReadOnly
+import json
 
 def index(request):
     return render('index.html')
@@ -141,3 +142,11 @@ class ProfileList(APIView):
     #         self.get_queryset = Business.objects.all()
 
     #     super().list(*args, **kwargs)
+
+def check_login(request):
+    if request.user.is_authenticated:
+        return HttpResponse(json.dumps({'result': {'logged': True}, 'user': request.user.username}),
+                        content_type="application/json")
+    else:
+        return HttpResponse(json.dumps({'result': {'logged': False}}),
+                        content_type="application/json")
