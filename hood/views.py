@@ -70,7 +70,7 @@ class HoodList(APIView):
 
 class postHood(APIView):
 
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     def post(self, request, format=None):
         serializers = HoodSerializer(data=request.data)
         if serializers.is_valid():
@@ -104,7 +104,7 @@ class HoodViewset(mixins.CreateModelMixin,
     
 
 class PostList(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
     def post(self, request, format=None):
         serializers = PostSerializer(data=request.data)
         if serializers.is_valid():
