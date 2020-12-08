@@ -12,7 +12,7 @@ This is a website that allows one to join a neigborhood and post things around t
 
 ## Front-End link
 
-Click the [ link ] (https://github.com/DorcasToto/Neighborhood-Frontend) to view the front-end repository
+Click the [ link ]( https://github.com/DorcasToto/Neighborhood-Frontend) to view the front-end repository
 
 # Features
 
