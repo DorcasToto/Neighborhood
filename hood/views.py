@@ -68,6 +68,16 @@ class HoodList(APIView):
         serializerdata = HoodSerializer(all_hoods,many = True)
         return Response(serializerdata.data)
 
+class postHood(APIView):
+
+    permission_classes = [permissions.IsAuthenticated]
+    def post(self, request, format=None):
+        serializers = HoodSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)     
+
 class HoodViewset(mixins.CreateModelMixin,
                   mixins.RetrieveModelMixin,
                   mixins.UpdateModelMixin,

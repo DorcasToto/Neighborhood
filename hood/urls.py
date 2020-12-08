@@ -47,6 +47,7 @@ urlpatterns = [
     path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/v1/view_hood/<pk>/', view_hood, name='view_hood'),
     path('api/v1/hoods/', views.HoodList.as_view()),
+    path('api/v1/create_hood/', views.postHood.as_view()),
     path('api/v1/post/',views.PostList.as_view()),
     path('api/v1/allposts/',views.viewPosts.as_view()),
     path('api/v1/profile/<pk>/',views.ProfileList.as_view()),
