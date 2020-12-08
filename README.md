@@ -76,6 +76,7 @@ Download [ postman]( https://www.postman.com/downloads/ ) to access the followin
 - view hoods endpoint (https://hood256.herokuapp.com/api/v1/hoods/)
 - create post on a hood endpoint (https://hood256.herokuapp.com/api/v1/post/)
 - current user endpoint (https://hood256.herokuapp.com/currentuser/)
+- create hood endpoint (https://hood256.herokuapp.com/api/v1/create_hood/) username:moringa, password:1234
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/DorcasToto/Neighborhood-Frontend/blob/master/LICENSE)
